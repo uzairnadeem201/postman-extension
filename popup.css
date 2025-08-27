@@ -1,0 +1,13 @@
+.Btn{
+    border-radius: 10px;
+    background-color: beige;
+}
+
+.table{
+    height: fit-content;
+    width: fit-content;
+}
+.tableheader{
+    display: flex;
+    gap: 10px;
+}

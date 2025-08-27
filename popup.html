@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>XHR Requests</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <div class="main">
+      <h1>Active Tab Requests</h1>
+      <table class="table" id="listPage">
+        <thead >
+          <tr class="tableheader">
+            <th>Method</th>
+            <th>URL</th>
+            <th>Type</th>
+            <th>Time</th>
+          </tr>
+        </thead>
+        <tbody id="requestsBody"></tbody>
+      </table>
+    </div>
+
+    <!-- Details Page -->
+    <div id="detailsPage" class="hidden">
+      <button class="Btn" id="backBtn">Back</button>
+      <h3>Request Details</h3>
+      <pre id="detailsContent"></pre>
+    </div>
+
+    <script src="popup.js"></script>
+  </body>
+</html>
