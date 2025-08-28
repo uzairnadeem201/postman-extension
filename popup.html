@@ -6,27 +6,25 @@
   </head>
   <body>
     <div class="main">
-      <h1>Active Tab Requests</h1>
-      <table class="table" id="listPage">
-        <thead >
-          <tr class="tableheader">
-            <th>Method</th>
-            <th>URL</th>
-            <th>Type</th>
-            <th>Time</th>
-          </tr>
-        </thead>
-        <tbody id="requestsBody"></tbody>
-      </table>
-    </div>
+      <div class="header">
+        <h1>Active Tab Requests</h1>
+        <div>
+            <button class="refreshbtn" id="refresh">Refresh</button>
+            <button class="clearbtn" id="clearbtn">clear</button>
+        </div>
+        
+      </div>
 
-    <!-- Details Page -->
-    <div id="detailsPage" class="hidden">
-      <button class="Btn" id="backBtn">Back</button>
-      <h3>Request Details</h3>
-      <pre id="detailsContent"></pre>
+      <div class="table" id="table">
+        <div class="tableheader">
+          <span>Method</span>
+          <span>URL</span>
+          <span>Type</span>
+          <span>Time</span>
+        </div>
+        <div class="tablebody" id="requestsBody"></div>
+      </div>
     </div>
-
     <script src="popup.js"></script>
   </body>
 </html>

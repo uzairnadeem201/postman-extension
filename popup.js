@@ -1,44 +1,48 @@
 const tbody = document.getElementById("requestsBody");
 const refreshBtn = document.getElementById("refresh");
-const listPage = document.getElementById("listPage");
-const detailsPage = document.getElementById("detailsPage");
-const backBtn = document.getElementById("backBtn");
-const detailsContent = document.getElementById("detailsContent");
+const tbl = document.getElementById("table");
+const clearbtn = document.getElementById("clearbtn");
 
 function renderRequests() {
-    chrome.runtime.sendMessage({ action: "GetRequests" }, (response) => {
-        const requests = response.requests || [];
-        tbody.innerHTML = "";
+  chrome.runtime.sendMessage({ action: "GetRequests" }, (response) => {
+    const requests = response.requests || [];
+    tbody.innerHTML = "";
+    if (requests.length === 0) {
+      tbody.innerHTML = `
+        <div class="empty-state">
+            No requests fetched yet
+        </div>
+      `;
+      return;
+    }
+    requests.forEach((req) => {
+      const tr = document.createElement("div");
+      tr.className = "tablerow";
+      const time = new Date(req.timestamp).toLocaleTimeString();
 
-        requests.forEach(req => {
-            const tr = document.createElement("tr");
-            const time = new Date(req.timestamp).toLocaleTimeString();
+      tr.innerHTML = `
+        <span>${req.method}</span>
+        <span class="url-cell" title="${req.url}">${req.url}</span>
+        <span>${req.type}</span>
+        <span>${time}</span>
+      `;
 
-            tr.innerHTML = `
-                <td>${req.method}</td>
-                <td title="${req.url}">${req.url}</td>
-                <td>${req.type}</td>
-                <td>${time}</td>
-            `;
-            tr.addEventListener("click", () => {
-                showDetails(req);
-            });
-
-            tbody.appendChild(tr);
-        });
+      tbody.appendChild(tr);
     });
+  });
 }
 
-function showDetails(req) {
-    listPage.classList.add("hidden");
-    detailsPage.classList.remove("hidden");
-    detailsContent.textContent = JSON.stringify(req, null, 2);
+function clearRequests() {
+  chrome.storage.local.set({ requests: [] }, () => {
+    tbody.innerHTML = `
+      <div class="empty-state">
+        No requests fetched yet
+      </div>
+    `;
+    console.log("Requests cleared.");
+  });
 }
-
-backBtn.addEventListener("click", () => {
-    detailsPage.classList.add("hidden");
-    listPage.classList.remove("hidden");
-});
 
 renderRequests();
 refreshBtn.addEventListener("click", renderRequests);
+clearbtn.addEventListener("click",clearRequests);
