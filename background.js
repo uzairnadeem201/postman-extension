@@ -23,6 +23,8 @@ chrome.tabs.onActivated.addListener(updateActiveTab);
 chrome.windows.onFocusChanged.addListener(updateActiveTab);
 updateActiveTab();
 
+//capture response
+
 //listens before request data 
 
 function listenBeforeRequest(details){

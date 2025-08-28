@@ -3,7 +3,7 @@
   "name": "XHR & Fetch Request Viewer",
   "version": "1.0",
   "description": "Capture and view XHR/Fetch requests from the active tab.",
-  "permissions": ["webRequest", "storage", "tabs"],
+  "permissions": ["webRequest", "storage", "tabs","scripting"],
   "host_permissions": ["<all_urls>"],
   "background": {
     "service_worker": "background.js",

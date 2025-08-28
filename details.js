@@ -1,27 +1,42 @@
-const params = new URLSearchParams(window.location.search);
-const requestId = params.get("id");
+const backbtn = document.getElementById("backbtn");
+document.addEventListener("DOMContentLoaded", () => {
+  const detailsDiv = document.querySelector(".details");
 
-const detailsDiv = document.getElementById("details");
-
-chrome.runtime.sendMessage({ action: "GetRequestById", id: requestId }, (response) => {
-    if (response.success && response.request) {
-        const req = response.request;
-
-        detailsDiv.innerHTML = `
-            <h3>${req.method} ${req.url}</h3>
-            <p><b>Type:</b> ${req.type}</p>
-            <p><b>Time:</b> ${new Date(req.timestamp).toLocaleString()}</p>
-            <p><b>Status:</b> ${req.status || "N/A"}</p>
-            <h4>Query Params:</h4>
-            <pre>${JSON.stringify(req.queryParams, null, 2)}</pre>
-            <h4>Headers:</h4>
-            <pre>${JSON.stringify(req.sentHeaders || {}, null, 2)}</pre>
-            <h4>Body:</h4>
-            <pre>${JSON.stringify(req.requestBody || {}, null, 2)}</pre>
-            <h4>Error:</h4>
-            <pre>${req.error || "None"}</pre>
-        `;
-    } else {
-        detailsDiv.textContent = "Request not found!";
+  // Load the selected request from storage
+  chrome.storage.local.get("selectedRequest", ({ selectedRequest }) => {
+    if (!selectedRequest) {
+      detailsDiv.innerHTML = `<p>No request selected.</p>`;
+      return;
     }
+
+    // Render the request fields
+    detailsDiv.innerHTML = `
+      <div class="detail-item"><strong>Method:</strong> ${selectedRequest.method}</div>
+      <div class="detail-item"><strong>URL:</strong> ${selectedRequest.url}</div>
+      <div class="detail-item"><strong>Type:</strong> ${selectedRequest.type}</div>
+      <div class="detail-item"><strong>Time:</strong> ${new Date(selectedRequest.timestamp).toLocaleString()}</div>
+      <div class="detail-item"><strong>Status:</strong> ${selectedRequest.status || "pending"}</div>
+      <div class="detail-item"><strong>Status Code:</strong> ${selectedRequest.statusCode || "-"}</div>
+      <div class="detail-item"><strong>Error:</strong> ${selectedRequest.error || "-"}</div>
+      
+      <div class="detail-item"><strong>Query Params:</strong> 
+        ${selectedRequest.queryparams && selectedRequest.queryparams.length > 0
+          ? `<ul>` + selectedRequest.queryparams.map(q => `<li>${q[0]}: ${q[1]}</li>`).join("") + `</ul>`
+          : "None"}
+      </div>
+
+      <div class="detail-item"><strong>Headers:</strong>
+        ${selectedRequest.headers && selectedRequest.headers.length > 0
+          ? `<ul>` + selectedRequest.headers.map(h => `<li>${h.name}: ${h.value}</li>`).join("") + `</ul>`
+          : "None"}
+      </div>
+    `;
+  });
 });
+
+
+function goBackToMainPage() {
+    window.location.href = "popup.html";
+}
+
+backbtn.addEventListener("click", goBackToMainPage);

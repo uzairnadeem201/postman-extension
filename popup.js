@@ -26,10 +26,16 @@ function renderRequests() {
         <span>${req.type}</span>
         <span>${time}</span>
       `;
-
+      tr.addEventListener("click",()=>navigateToDetails(req));
       tbody.appendChild(tr);
     });
   });
+}
+
+function navigateToDetails(req){
+    chrome.storage.local.set({selectedRequest:req},()=>{
+        window.location.href="details.html";
+    });
 }
 
 function clearRequests() {
