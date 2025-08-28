@@ -27,7 +27,7 @@ html, body {
   box-sizing: border-box;
 }
 
-.refreshbtn {
+.btn {
   border-radius: 10px;
   border: none;
   padding: 8px 14px;
@@ -37,7 +37,7 @@ html, body {
   color: white;
   background: linear-gradient(135deg, #3b82f6, #06b6d4);
 }
-.refreshbtn:hover {
+.btn:hover {
   opacity: 0.8;
 }
 

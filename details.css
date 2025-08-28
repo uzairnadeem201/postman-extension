@@ -1,3 +1,4 @@
+/* Additional styles for the details page */
 html, body {
   width: 800px;
   height: 600px;  
@@ -8,10 +9,25 @@ html, body {
   color: #111827;
   overflow: auto;
 }
+
 .main {
   width: 100%;
   display: flex;
   flex-direction: column;
+}
+
+.btn {
+  border-radius: 10px;
+  border: none;
+  padding: 8px 14px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  color: white;
+  background: linear-gradient(135deg, #3b82f6, #06b6d4);
+}
+.btn:hover {
+  opacity: 0.8;
 }
 
 .header {
@@ -26,63 +42,164 @@ html, body {
   box-sizing: border-box;
 }
 
-.editbtn {
-  border-radius: 10px;
-  border: none;
-  padding: 8px 14px;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  color: white;
-  background: linear-gradient(135deg, #3b82f6, #06b6d4);
-}
-.editbtn:hover {
-  opacity: 0.8;
-}
-
-.backbtn {
-  border-radius: 10px;
-  border: none;
-  padding: 8px 14px;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  color: white;
-  background: linear-gradient(135deg, #3b82f6, #06b6d4);
-}
-.backbtn:hover {
-  opacity: 0.8;
-}
-
-.details{
-    display: flex;
-    flex-direction: column;
-
-}
-
 .details {
-  margin-top: 1rem;
-  font-family: Arial, sans-serif;
-  font-size: 14px;
+  padding: 10px;
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.request-section, .response-section {
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  background-color: #f9f9f9;
+}
+
+.request-section h3 {
+  color: #2563eb;
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 16px;
+  border-bottom: 2px solid #2563eb;
+  padding-bottom: 5px;
+}
+
+.response-section h3 {
+  color: #059669;
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 16px;
+  border-bottom: 2px solid #059669;
+  padding-bottom: 5px;
 }
 
 .detail-item {
-  margin-bottom: 8px;
+  margin-bottom: 12px;
+  padding: 8px;
+  background-color: white;
+  border-radius: 4px;
+  border: 1px solid #e5e7eb;
+}
+
+.detail-item strong {
+  color: #374151;
+  display: inline-block;
+  min-width: 120px;
+}
+
+.url-text {
+  word-break: break-all;
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  background-color: #f3f4f6;
+  padding: 2px 4px;
+  border-radius: 3px;
+}
+
+.status-pending {
+  color: #f59e0b;
+  font-weight: bold;
+}
+
+.status-completed {
+  color: #059669;
+  font-weight: bold;
+}
+
+.status-error, .status-fetch_error {
+  color: #dc2626;
+  font-weight: bold;
+}
+
+.response-status-success {
+  color: #059669;
+  font-weight: bold;
+  background-color: #d1fae5;
+  padding: 2px 6px;
+  border-radius: 3px;
+}
+
+.response-status-error {
+  color: #dc2626;
+  font-weight: bold;
+  background-color: #fee2e2;
+  padding: 2px 6px;
+  border-radius: 3px;
+}
+
+.params-list, .headers-list {
+  background-color: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+  padding: 10px;
+  margin: 5px 0;
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+.params-list li, .headers-list li {
+  margin: 4px 0;
+  font-size: 12px;
+}
+
+.body-container {
+  background-color: #1f2937;
+  color: #f9fafb;
+  border-radius: 6px;
+  padding: 12px;
+  margin: 8px 0;
+  max-height: 300px;
+  overflow: auto;
+  border: 1px solid #374151;
+}
+
+.json-body {
+  margin: 0;
+  font-family: 'Courier New', monospace;
+  font-size: 11px;
   line-height: 1.4;
-  word-wrap: break-word;    /* breaks long words */
-  word-break: break-word;   /* ensures it wraps inside small containers */
-  white-space: normal;      /* allow text to wrap */
+  white-space: pre-wrap;
+  word-break: break-all;
 }
 
-.detail-item ul {
-  margin: 5px 0 0 15px;
-  padding: 0;
+.text-body {
+  margin: 0;
+  font-family: 'Courier New', monospace;
+  font-size: 11px;
+  line-height: 1.4;
+  white-space: pre-wrap;
 }
 
-.detail-item li {
-  margin-bottom: 4px;
-  word-wrap: break-word;
-  word-break: break-word;
-  white-space: normal;
+.no-response {
+  text-align: center;
+  padding: 20px;
+  color: #6b7280;
 }
 
+.fetch-btn {
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  margin-top: 10px;
+  transition: background-color 0.2s;
+}
+
+.fetch-btn:hover {
+  background-color: #1d4ed8;
+}
+
+.fetch-btn:disabled {
+  background-color: #9ca3af;
+  cursor: not-allowed;
+}
+
+.error {
+  background-color: #fee2e2 !important;
+  border-color: #fecaca !important;
+  color: #dc2626;
+}
