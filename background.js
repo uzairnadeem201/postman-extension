@@ -65,7 +65,7 @@ async function replayRequest(req) {
 
   let headers = {};
   if (req.headers) {
-    req.headers.forEach(h => {
+    req.headers.forEach((h) => {
       headers[h.name] = h.value;
     });
   }
@@ -92,18 +92,16 @@ async function replayRequest(req) {
       timestamp: Date.now(),
       duration: Date.now() - start,
       headers: Object.fromEntries(response.headers.entries()),
-      body: text
+      body: text,
     };
 
     console.log("Replayed response:", replayed);
     return replayed;
-
   } catch (err) {
     console.error("Replay failed:", err);
     return { error: err.toString(), timestamp: Date.now() };
   }
 }
-
 
 function listenHeaders(details) {
   if (details.tabId != activeTabId) return;
@@ -177,6 +175,12 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
       sendResponse({ requests: requests || [] });
     });
 
+    return true;
+  }
+  if (msg.action === "ReplayRequest") {
+    replayRequest(msg.request).then((res) => {
+      sendResponse(res);
+    });
     return true;
   }
 });
